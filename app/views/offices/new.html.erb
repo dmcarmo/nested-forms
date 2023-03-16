@@ -1,0 +1,16 @@
+<div class="m-3">
+  <%= form_with model: @office, class: "d-flex flex-column" do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%#= f.collection_check_boxes :facility_ids, Facility.all, :id, :name, include_hidden: false, item_label_class: "" %>
+    <%#= f.association :facility_id, as: :check_boxes, include_hidden: false %>
+    <% Facility.all.each do |facility| %>
+      <%= f.fields_for :facility_ids, index: :facility_id do |fac| %>
+        <%= fac.check_box :id %>
+        <%= fac.label facility.name %>
+      <% end %>
+    <% end %>
+    <%= f.submit class: "btn-confirm-new" %>
+    <%= link_to "Cancel", offices_path %>
+  <% end %>
+</div>
