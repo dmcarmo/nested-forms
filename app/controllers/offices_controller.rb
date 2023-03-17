@@ -12,7 +12,6 @@ class OfficesController < ApplicationController
   end
 
   def create
-    raise
     # Check "One-to-many section" on  https://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html
     # my params should be like this
     # params = { office: {name: "Colombo", facilities_attributes: [
@@ -22,7 +21,6 @@ class OfficesController < ApplicationController
     # }}
 
     @office = Office.new(office_params)
-    @office.user = current_user
 
     if @office.save!
       redirect_to offices_path
@@ -34,6 +32,6 @@ class OfficesController < ApplicationController
   private
 
   def office_params
-    params.require(:office).permit(:name, facilities_attributes: [])
+    params.require(:office).permit(:name, facility_ids: [])
   end
 end
