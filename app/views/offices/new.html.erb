@@ -1,9 +1,10 @@
 <div class="m-3">
-  <%= form_with model: @office, class: "d-flex flex-column" do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <%= f.collection_check_boxes :facility_ids, Facility.all, :id, :name, include_hidden: false, item_label_class: "" %>
-    <%= f.submit class: "btn-confirm-new" %>
-    <%= link_to "Cancel", offices_path %>
+  <%= simple_form_for @office, class: "d-flex flex-column" do |f| %>
+    <%= f.input :name %>
+    <div class="d-flex flex-column mb-3">
+      <%= f.collection_check_boxes :facility_ids, Facility.all, :id, :name, include_hidden: false, item_label_class: "ps-1" %>
+    </div>
+    <%= f.button :submit, class: "btn-primary" %>
+    <%= link_to "Cancel", offices_path, class: "btn btn-danger" %>
   <% end %>
 </div>
