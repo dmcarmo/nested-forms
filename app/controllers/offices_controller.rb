@@ -9,6 +9,7 @@ class OfficesController < ApplicationController
 
   def new
     @office = Office.new
+    @office.office_facilities.build
   end
 
   def create
@@ -19,9 +20,9 @@ class OfficesController < ApplicationController
     #     {facility_id: 10}
     #  ]
     # }}
-
+    
     @office = Office.new(office_params)
-
+    raise
     if @office.save!
       redirect_to offices_path
     else
@@ -32,6 +33,6 @@ class OfficesController < ApplicationController
   private
 
   def office_params
-    params.require(:office).permit(:name, facility_ids: [])
+    params.require(:office).permit(:name, office_facilities_attributes: [:facility_id, :quantity])
   end
 end

@@ -2,7 +2,17 @@
   <%= simple_form_for @office, class: "d-flex flex-column" do |f| %>
     <%= f.input :name %>
     <div class="d-flex flex-column mb-3">
-      <%= f.collection_check_boxes :facility_ids, Facility.all, :id, :name, include_hidden: false, item_label_class: "ps-1" %>
+      <%# for checkboxes %>
+      <%#= f.collection_check_boxes :facility_ids, Facility.all, :id, :name, include_hidden: false, item_label_class: "ps-1" %>
+
+      <%# for select dropdown %>
+      <%#= f.input :facility_ids, collection: Facility.all, label_method: :name, label_value: :id, include_hidden: false, item_label_class: "ps-1" %>
+
+      <%# nested form with extra fields %>
+      <%= f.simple_fields_for :office_facilities do |fi| %>
+        <%= fi.input :facility_id, collection: Facility.all, label_method: :name, label_value: :id, include_hidden: false, item_label_class: "ps-1" %>
+        <%= fi.input :quantity %>
+      <% end %>
     </div>
     <%= f.button :submit, class: "btn-primary" %>
     <%= link_to "Cancel", offices_path, class: "btn btn-danger" %>
