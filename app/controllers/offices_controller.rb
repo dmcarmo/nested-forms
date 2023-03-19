@@ -33,6 +33,6 @@ class OfficesController < ApplicationController
   private
 
   def office_params
-    params.require(:office).permit(:name, office_facilities_attributes: [:facility_id, :quantity])
+    params.require(:office).permit(:name, office_facilities_attributes: [:_destroy, :facility_id, :quantity])
   end
 end
